@@ -9,23 +9,23 @@ const isLoading = ref(false)
 const error = ref(null)
 
 const createEvent = async () => {
+    if (isLoading.value) return
     isLoading.value = true
     error.value = null
-    const eventID = Date.now()
-    const eventRef = dbRef(db, `events/${eventID}`)
-
+    
     try {
+        const eventID = Date.now()
+        const eventRef = dbRef(db, `events/${eventID}`)
         await set(eventRef, {
             id: eventID,
-            createdAt: eventID,
+            eventName: "Ukendt begivenhed",
             status: 'active',
-            participants: {}
+            participants: [],
         })
         router.push(`/event/${eventID}`)
     } catch (err) {
         console.error('Error creating event:', err)
         error.value = 'Failed to create event. Please try again.'
-    } finally {
         isLoading.value = false
     }
 }
@@ -38,7 +38,7 @@ const createEvent = async () => {
             class="button"
             :disabled="isLoading"
         >
-            {{ isLoading ? 'Creating...' : 'Create New Event' }}
+            Nyt initiativ
         </button>
         <p v-if="error" class="error">{{ error }}</p>
     </div>
@@ -78,9 +78,7 @@ const createEvent = async () => {
 }
 
 .button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    background-color: hsla(160, 100%, 37%, 0.7);
+    opacity: 0.5;
 }
 
 .error {
