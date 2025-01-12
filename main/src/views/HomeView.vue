@@ -1,29 +1,36 @@
 <script setup>
-  const generateEventId = () => {
-    return Date.now();
-  }
+import { ref as dbRef, set } from 'firebase/database'
+import { db } from '@/data/config'
+import { useRouter } from 'vue-router'
+import CreateEventButton from '@/components/CreateEventButton.vue';
+
+const router = useRouter()
+
 </script>
 
 <template>
   <main>
     <header>
-      <h1>Initiativ</h1>
+      <h1>initiativ</h1>
     </header>
 
-    <RouterLink :to="`/event/${generateEventId()}`" class="button">
-      Create event
-    </RouterLink>
+    <CreateEventButton/>
   </main>
 </template>
 
 <style scoped>
-
 header {
-  padding: 1rem;
-  background-color: var(--color-background-soft);
+  padding: 2rem;
+  text-align: center;
 }
 
-h1 {
+.title {
   color: var(--color-heading);
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 3.5rem;
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: 0.05em;
 }
 </style>
