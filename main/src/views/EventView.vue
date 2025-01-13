@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router'
 import { ref as dbRef, onValue } from 'firebase/database'
 import { db } from '@/data/config'
 import EventHeader from '@/components/EventHeader.vue'
+import ParticipantList from '@/components/ParticipantList.vue'
 
 const route = useRoute()
 const eventID = route.params.id
@@ -23,8 +24,7 @@ onMounted(() => {
                  :initialName="eventData?.name || 'Ukendt begivenhed'"
     />
     <main>
-        <input type="text" name="eventName" id="eventID">
-        <input type="text" name="addParticipant" id="idk">
+        <ParticipantList :eventID="eventID"/>
 
         <!-- 
         <Calender/>
